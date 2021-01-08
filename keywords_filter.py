@@ -5,13 +5,12 @@ from constant import PAGES
 
 
 def main():
+    keywords_include = []
+    keywords_exclude = []
+    keywords_must_in = ["control", "video"]
 
-    keywords_include = ["optimization", "video", "quality"]
-    keywords_exclude = ["wireless"]
-    keywords_must_in = ["data center"]
-
-    output_file = "filter.csv"
-    count_file = "count.txt"
+    output_file = "filter_co.csv"
+    count_file = "count_co.txt"
 
     if os.path.exists(output_file):
         os.remove(output_file)
@@ -45,9 +44,12 @@ def main():
                             break
                 stage_3 = False
                 if stage_1 and stage_2:
+                    if len(keywords_include) == 0:
+                        stage_3 = True
                     for word_include in keywords_include:
                         if word_include in title:
                             stage_3 = True
+                            break
                 if stage_1 and stage_2 and stage_3:
                     writer.writerow(row)
                     count += 1
