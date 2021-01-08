@@ -8,3 +8,5 @@ PAGES = {"IEEE Conference on Computer Communications (INFOCOM)":
              ("https://dblp.uni-trier.de/db/journals/ccr/index.html", "A"),
          "IEEE Journal of Selected Areas in Communications (JSAC)":
              ("https://dblp.uni-trier.de/db/journals/jsac/index.html", "A")}
+
+YEARS = list(range(2015, 2021))

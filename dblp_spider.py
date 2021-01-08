@@ -2,7 +2,7 @@ import requests
 import re
 import csv
 from bs4 import BeautifulSoup
-from constant import PAGES
+from constant import PAGES, YEARS
 
 
 def get_bs_obj(page_url: str):
@@ -34,11 +34,11 @@ def get_info(url, result_file, class_find, info):
     with open(result_file, "a+") as csvfile:
         for i in bs_obj.find_all(class_=class_find):
             title = i.find(class_="title")
-            title = title.get_text()  # 提取文本
-            doi = i.find("a")  # 找到规律，直接拿第一个链接就是了,doi值隐藏在这个链接之后
+            title = title.get_text()
+            doi = i.find("a")
             doi = doi.get("href")
             doi = str(doi)
-            doi = doi.replace("http://", "")  # 除去链接头
+            doi = doi.replace("http://", "")
 
             writer = csv.writer(csvfile)
             writer.writerow([title, doi] + info)
@@ -51,9 +51,9 @@ def main():
         journal_name = page[0]
         main_page = page[1][0]
         ccf_rank = page[1][1]
-        years = list(range(2015, 2021))
+        years = YEARS
 
-        repeat_url = set()  # 用于去掉重复的url爬取
+        repeat_url = set()
 
         for year in years:
             print("{}-{}".format(journal_name, year))
